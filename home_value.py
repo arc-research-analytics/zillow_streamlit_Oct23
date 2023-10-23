@@ -33,7 +33,7 @@ def app():
 
     st.markdown(custom_page_styling, unsafe_allow_html=True)
 
-    plus_color = '#FFFFFF'
+    plus_color = '#46494C'
     plus_font_size = '40'
     plus_font_weight = '100'
     plus_line_height = '40'
