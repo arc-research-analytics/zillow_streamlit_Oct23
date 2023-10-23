@@ -16,8 +16,6 @@ st.set_page_config(
     }
 )
 
-# create the page navigation / menu bar in the sidebar
-
 
 class MultiApp:
 

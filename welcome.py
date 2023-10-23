@@ -3,6 +3,7 @@ from PIL import Image
 import base64
 
 
+@st.cache_data
 def app():
     # the custom page styling lives here:
     custom_page_styling = """
