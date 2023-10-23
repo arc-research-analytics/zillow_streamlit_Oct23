@@ -8,10 +8,10 @@ def app():
                 .reportview-container .main {visibility: hidden;}    
                 footer {visibility: hidden;}
                 section.main > div:has(~ footer ) {
-                    padding-bottom: 1px;
-                    padding-left: 40px;
-                    padding-right: 40px;
-                    padding-top: 30px;
+                    padding-bottom: 5px;
+                    padding-left: 60px;
+                    padding-right: 10px;
+                    padding-top: 60px;
                 }
                 [data-testid="stDecoration"] {
                     background-image: linear-gradient(90deg, rgb(70, 73, 76), rgb(70, 73, 76));
