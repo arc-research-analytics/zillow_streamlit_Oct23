@@ -34,23 +34,32 @@ class MultiApp:
             app = option_menu(
                 menu_title='Dashboard Menu',
                 menu_icon='arrow-90deg-down',
-                options=['Welcome', 'Home Values',
-                         'Home Value Forecasts', 'Rent Index'],
+                options=['Welcome', 'Home Value',
+                         'Home Value Forecast', 'Rent Index'],
                 icons=['bookmark-dash', 'house-door',
                        'graph-up', 'cash-stack'],
                 default_index=0,
                 styles={
-                    'container': {'background-color': '#46494C'},
+                    'container': {'background-color': '#46494C', 'padding-bottom': '0!important'},
                     "nav-link": {"--hover-color": "#909093", "color": "#FFFFFF"},
                     "nav-link-selected": {"background-color": "#FF7F11"}
                 }
             )
+            st.markdown(
+                """
+                <style>
+                .icon.bi-arrow-90deg-down {
+                    margin-right: 50px;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True)
 
         if app == 'Welcome':
             welcome.app()
-        elif app == 'Home Values':
+        elif app == 'Home Value':
             home_value.app()
-        elif app == 'Home Value Forecasts':
+        elif app == 'Home Value Forecast':
             forecasts.app()
         elif app == 'Rent Index':
             zori.app()

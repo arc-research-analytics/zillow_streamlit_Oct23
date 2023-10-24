@@ -13,7 +13,7 @@ def app():
                 section.main > div:has(~ footer ) {
                     padding-bottom: 5px;
                     padding-left: 60px;
-                    padding-right: 10px;
+                    padding-right: 50px;
                     padding-top: 60px;
                 }
                 [data-testid="stHeader"] {
@@ -81,7 +81,7 @@ def app():
     dash_title_font_weight = '900'
     line_height1 = '70'
     title_align = 'left'
-    title_font_style = 'italic'
+    title_font_style = 'normal'
     dash_text = 'Welcome to the Atlanta Zillow Dashboard!'
 
     # dashboard title
@@ -98,7 +98,7 @@ def app():
     link_style = 'color:#606266; font-weight:900; text-decoration:none;'
 
     # paragraph text
-    text_1 = 'This desktop app is built to explore three distinct Zillow datasets: Home Values, Home Value Forecasts, and Rental Indices. Use the sidebar navigation menu to switch between them. All data has been downloaded to the ZIP code level and is current as of October 2023. Read more about Zillow\'s home value methodology <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
+    text_1 = 'This desktop app is built to explore three distinct Zillow datasets: <i>Home Values, Home Value Forecasts,</i> and <i>Rental Indices</i>. Use the sidebar navigation menu to switch between them. All data has been downloaded to the ZIP code level and is current as of October 2023. Read more about Zillow\'s home value methodology <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
         link_style + '">here</a> and rent index methodology <a href="https://www.zillow.com/research/methodology-zori-repeat-rent-27092/" style="' + link_style + '">here</a>.'
     st.markdown(
         f"<p style='color:{paragraph_color}; font-size:{paragraph_font_size}px; font-weight:{paragraph_font_weight}; line-height:{paragraph_line_height}px; font-style:{paragraph_font_style}; display:in-line; text-align:{paragraph_align};'>{text_1}", unsafe_allow_html=True)
@@ -115,12 +115,13 @@ def app():
     st.sidebar.write("")
     st.sidebar.write("")
     col1, col2, col3 = st.sidebar.columns([1, 1, 1])
-    with col2:
-        image = Image.open('Other/arc2.png')
-        st.image(image, width=90)
+    logo_width = 90
 
-    col1, col2, col3 = st.sidebar.columns([1, 1, 1])
     with col2:
+        # first logo
+        image = Image.open('Other/arc2.png')
+        st.image(image, width=logo_width)
+
         # paragraph styling variables
         plus_color = '#FFFFFF'
         plus_font_size = '40'
@@ -134,7 +135,6 @@ def app():
         st.markdown(
             f"<p style='color:{plus_color}; font-size:{plus_font_size}px; font-weight:{plus_font_weight}; line-height:{plus_line_height}px; font-style:{plus_font_style}; display:in-line; text-align:{plus_align};'>{text_3}", unsafe_allow_html=True)
 
-    col1, col2, col3 = st.sidebar.columns([1, 1, 1])
-    with col2:
+        # second logo
         image = Image.open('Other/zillow_logo_BW.png')
-        st.image(image, width=90)
+        st.image(image, width=logo_width)
