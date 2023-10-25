@@ -43,7 +43,7 @@ def app():
     # sidebar---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v
     st.sidebar.write("---")
 
-    sidebar_font_size = '18'
+    sidebar_font_size = '16'
     sidebar_color = '#FFFFFF'
     sidebar_font_style = 'normal'
 
@@ -59,7 +59,7 @@ def app():
         unsafe_allow_html=True)
 
     county_variable = st.sidebar.selectbox(
-        label='',
+        label='something',
         options=(
             'All counties',
             'Cherokee',
@@ -111,7 +111,7 @@ def app():
         unsafe_allow_html=True)
 
     housing_variable = st.sidebar.selectbox(
-        label='',
+        label='something',
         options=(
             'All Single-Family Homes',
             '1-Bedroom Homes',
@@ -222,14 +222,13 @@ def app():
         initial_view_state = pdk.ViewState(
             latitude=county_variable_dict[county_variable][2],
             longitude=county_variable_dict[county_variable][3],
-            zoom=county_variable_dict[county_variable][4],
+            zoom=5,
             max_zoom=5,
             min_zoom=20,
             pitch=0,
             bearing=0,
             height=550
         )
-        st.write("")
 
         # create the geojson data layer
         geojson_data = pdk.Layer(

@@ -78,7 +78,7 @@ def app():
     # dashboard title styling variables
     dash_title_color = '#46494C'
     dash_title_font_size = '32'
-    dash_title_font_weight = '900'
+    dash_title_font_weight = '600'
     line_height1 = '70'
     title_align = 'left'
     title_font_style = 'normal'
