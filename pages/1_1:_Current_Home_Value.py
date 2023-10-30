@@ -84,6 +84,7 @@ housing_variable_dict = {
     '4-Bedroom Homes': '4_BR',
     '5+Bedroom Homes': '5+BR'
 }
+st.sidebar.write("")
 
 # map basemap title & CSS
 st.sidebar.markdown(
@@ -325,11 +326,12 @@ zillow_df.rename(columns={
     data_column.name: 'data_column'
 }, inplace=True)
 
-# get the KPI vales for min
-min_index = '${:,.0f}'.format(zillow_df['data_column'].min())
-min_row = zillow_df['data_column'].idxmin()
-min_zip = zillow_df.loc[min_row, 'zip_code']
-min_county = zillow_df.loc[min_row, 'county']
+
+# get the KPI vales for max
+max_index = '${:,.0f}'.format(zillow_df['data_column'].max())
+max_row = zillow_df['data_column'].idxmax()
+max_zip = zillow_df.loc[max_row, 'zip_code']
+max_county = zillow_df.loc[max_row, 'county']
 
 # get the KPI vales for median
 median_index = '${:,.0f}'.format(zillow_df['data_column'].median())
@@ -338,11 +340,11 @@ median_row = (zillow_df['data_column'] -
 median_zip = zillow_df.loc[median_row, 'zip_code']
 median_county = zillow_df.loc[median_row, 'county']
 
-# get the KPI vales for max
-max_index = '${:,.0f}'.format(zillow_df['data_column'].max())
-max_row = zillow_df['data_column'].idxmax()
-max_zip = zillow_df.loc[max_row, 'zip_code']
-max_county = zillow_df.loc[max_row, 'county']
+# get the KPI vales for min
+min_index = '${:,.0f}'.format(zillow_df['data_column'].min())
+min_row = zillow_df['data_column'].idxmin()
+min_zip = zillow_df.loc[min_row, 'zip_code']
+min_county = zillow_df.loc[min_row, 'county']
 
 
 # kpi styles
@@ -358,20 +360,19 @@ KPI_value_font_color = '#46494C'
 KPI_value_font_weight = '100'
 KPI_line_height = '30'  # vertical spacing between the KPI label and value
 
-# Min Housing Value KPI
+# Max Housing Value KPI
 col3.markdown(
-    f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{min_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {min_index}<br>ZIP: {min_zip}<br>As part of: {min_county}</span>", unsafe_allow_html=True)
+    f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{max_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {max_index}<br>ZIP: {max_zip}<br>As part of: {max_county}</span>", unsafe_allow_html=True)
+col3.write("")
 
 # Regionwide median
 col3.markdown(
     f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{median_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {median_index}<br>ZIP: {median_zip}<br>As part of: {median_county}</span>", unsafe_allow_html=True)
 col3.write("")
 
-
-# Max Housing Value KPI
+# Min Housing Value KPI
 col3.markdown(
-    f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{max_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {max_index}<br>ZIP: {max_zip}<br>As part of: {max_county}</span>", unsafe_allow_html=True)
-col3.write("")
+    f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{min_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {min_index}<br>ZIP: {min_zip}<br>As part of: {min_county}</span>", unsafe_allow_html=True)
 
 
 # Zillow logo
