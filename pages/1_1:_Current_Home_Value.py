@@ -39,6 +39,9 @@ custom_page_styling = """
         div[data-baseweb="select"] > div {
             background-color: #46494C;
             }
+        button[title="View fullscreen"]{
+            visibility: hidden;
+            }
         div.stActionButton{visibility: hidden;}
     </style>
 """
@@ -107,10 +110,9 @@ base_map = st.sidebar.selectbox(
 
 # dictionary to change the basemap
 base_map_dict = {
-    'Streets': 'road',
-    'Satellite': 'satellite',
-    'Light': 'light',
-    'Dark': 'dark'
+    'Streets': ['road', [0, 0, 0]],
+    'Light': ['light', [0, 0, 0]],
+    'Dark': ['dark', [255, 255, 255]]
 }
 
 # sidebar---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^
@@ -264,7 +266,7 @@ def pydeck_map():
         opacity=0.75,
         stroked=True,
         filled=False,
-        get_line_color=[0, 0, 0],
+        get_line_color=base_map_dict[base_map][1],
         line_width_min_pixels=2
     )
 
@@ -288,7 +290,7 @@ def pydeck_map():
         ],
         initial_view_state=initial_view_state,
         map_provider='mapbox',
-        map_style=base_map_dict[base_map],
+        map_style=base_map_dict[base_map][0],
         tooltip=tooltip
     )
 

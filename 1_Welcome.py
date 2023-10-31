@@ -37,6 +37,9 @@ custom_page_styling = """
         span[data-baseweb="tag"] {
             background-color: #46494C 
             }
+        button[title="View fullscreen"]{
+            visibility: hidden;
+            }
         div.stActionButton{visibility: hidden;}
     </style>
 """
