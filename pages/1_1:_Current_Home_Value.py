@@ -221,13 +221,13 @@ def pydeck_map():
         zillow_gdf,
         pickable=True,
         autoHighlight=True,
-        highlight_color=[255, 255, 255, 128],
+        highlight_color=[255, 255, 255, 90],
         opacity=0.5,
-        stroked=True,
+        stroked=False,
         filled=True,
         get_fill_color='choro_color',
-        get_line_color=[255, 255, 255, 50],
-        line_width_min_pixels=1
+        # get_line_color=[255, 255, 255, 50],
+        # line_width_min_pixels=1
     )
 
     # create the geojson counties layer
