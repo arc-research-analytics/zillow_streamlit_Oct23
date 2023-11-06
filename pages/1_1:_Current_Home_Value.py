@@ -3,7 +3,9 @@ import pandas as pd
 import geopandas as gpd
 import pydeck as pdk
 from PIL import Image
+from Other import color_functions
 
+# set basic settings
 st.set_page_config(
     page_title="Zillow Dashboard",
     page_icon=":house:",
@@ -96,7 +98,7 @@ st.sidebar.markdown(
     color:{sidebar_color};
     font-size:{sidebar_font_size}px;
     font-style:{sidebar_font_style};
-    '>Select map basemap:</p>
+    '>Select basemap:</p>
     """,
     unsafe_allow_html=True)
 
@@ -130,40 +132,12 @@ st.markdown(
     f"<p style='color:{title_color}; font-size:{title_font_size}px; font-weight:{title_font_weight}; font-style:{title_font_style}; display:in-line; text-align:{title_align};'><b>{title_text}</b>: {housing_variable}", unsafe_allow_html=True)
 
 
-# function to convert hex values to RGB
-def hex_to_rgb(hex_color):
-    # Convert a hex color (e.g., "#RRGGBB") to an RGB tuple
-    hex_color = hex_color.lstrip("#")
-    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
-
-
-# function to generate an RGB choropleth color ramp based on hex inputs
-def generate_color_gradients(start_color, end_color, num_steps):
-    # Convert hex colors to RGB tuples
-    start_rgb = hex_to_rgb(start_color)
-    end_rgb = hex_to_rgb(end_color)
-
-    # Generate step-wise gradients
-    gradients = []
-    for step in range(num_steps):
-        # Interpolate between start and end colors
-        r = int(start_rgb[0] + (end_rgb[0] - start_rgb[0])
-                * step / (num_steps - 1))
-        g = int(start_rgb[1] + (end_rgb[1] - start_rgb[1])
-                * step / (num_steps - 1))
-        b = int(start_rgb[2] + (end_rgb[2] - start_rgb[2])
-                * step / (num_steps - 1))
-        gradient_color = (r, g, b)
-        gradients.append(gradient_color)
-
-    return gradients
-
-
 # Set RGB color ramp for the mapper function
 start_color = "#D7E2FF"
 end_color = "#2191FB"
 num_steps = 5
-custom_colors = generate_color_gradients(start_color, end_color, num_steps)
+custom_colors = color_functions.generate_color_gradients(
+    start_color, end_color, num_steps)
 
 
 @st.cache_data

@@ -108,7 +108,7 @@ paragraph_font_style = 'normal'
 link_style = 'color:#606266; font-weight:900; text-decoration:none;'
 
 # paragraph text
-text_1 = 'This desktop app is built to explore Zillow\'s home value and rent index datasets. Use the sidebar navigation menu to switch between them. All data has been downloaded to the ZIP code level and is current as of October 2023. Read more about Zillow\'s home value methodology <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
+text_1 = 'This desktop app is built to explore Zillow\'s home value and rent index datasets. Browse the five visuals via the left-hand sidebar navigation menu. All data has been downloaded to the ZIP code level and is current as of October 2023. Read more about Zillow\'s home value methodology <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
     link_style + '">here</a> and rent index methodology <a href="https://www.zillow.com/research/methodology-zori-repeat-rent-27092/" style="' + link_style + '">here</a>.'
 st.markdown(
     f"<p style='color:{paragraph_color}; font-size:{paragraph_font_size}px; font-weight:{paragraph_font_weight}; line-height:{paragraph_line_height}px; font-style:{paragraph_font_style}; display:in-line; text-align:{paragraph_align};'>{text_1}", unsafe_allow_html=True)
