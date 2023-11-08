@@ -43,6 +43,9 @@ custom_page_styling = """
         button[title="View fullscreen"]{
             visibility: hidden;
             }
+        [data-testid="stExpanderToggleIcon"] {
+            color: #46494C;
+            } 
         div.stActionButton{visibility: hidden;}
     </style>
 """
@@ -73,7 +76,7 @@ timeline_variable = st.sidebar.selectbox(
         '3-month outlook',
         '12-month outlook'
     ),
-    index=0,
+    index=2,
     label_visibility='collapsed'
 )
 
@@ -236,3 +239,39 @@ r = pdk.Deck(
 )
 
 st.pydeck_chart(r, use_container_width=True)
+
+st.markdown("""
+  <style>
+    /*Border around expander*/
+    .streamlit-expander {
+        border: 1px solid #46494C;
+        }
+    /*border for hover*/
+    .streamlit-expander:hover {
+        border: 1px solid #FFFFFF;
+        }
+    /*font styling for expander body*/
+    .streamlit-expander p {
+        font-size: 16px;
+        color: #46494C;
+        }
+    /*font styling for expander header only*/
+    .streamlit-expanderHeader p {
+      font-size: 18px;
+      color: #46494C;
+        }
+  </style>
+""", unsafe_allow_html=True)
+
+expander_header = "Methodology note"
+
+link_style = 'color:#606266; font-weight:900; text-decoration:none;'
+
+# paragraph text
+text_1 = 'From Zillow\'s methodology page: systematic error, or consistently over or underpredicting an event or the future, is the enemy of clear-eyed decision-making. Reducing systematic error in housing price forecasts during this environment centers around more flexibility and accurately capturing turning points versus seasonal trends. For more information on how this forecast model was developed, please visit <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
+    link_style + '">this page</a>.'
+
+
+with st.expander(expander_header):
+    st.markdown(
+        f"<p style='text-align:left;'>{text_1}", unsafe_allow_html=True)

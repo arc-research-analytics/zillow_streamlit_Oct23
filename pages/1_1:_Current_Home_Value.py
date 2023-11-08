@@ -135,7 +135,7 @@ st.markdown(
 # Set RGB color ramp for the mapper function
 start_color = "#D7E2FF"
 end_color = "#2191FB"
-num_steps = 5
+num_steps = 7
 custom_colors = color_functions.generate_color_gradients(
     start_color, end_color, num_steps)
 
@@ -144,7 +144,7 @@ custom_colors = color_functions.generate_color_gradients(
 def load_data():
 
     # load the data
-    gdf = gpd.read_file('Processed_data/zillow_final_SIMP.gpkg')
+    gdf = gpd.read_file('Processed_data/zillow_final.gpkg')
 
     # Replace 'Dekalb' with 'DeKalb'
     gdf['CountyName'] = gdf['CountyName'].replace({
@@ -223,11 +223,11 @@ def pydeck_map():
         autoHighlight=True,
         highlight_color=[255, 255, 255, 90],
         opacity=0.5,
-        stroked=False,
+        stroked=True,
         filled=True,
         get_fill_color='choro_color',
-        # get_line_color=[255, 255, 255, 50],
-        # line_width_min_pixels=1
+        get_line_color=[255, 255, 255, 50],
+        line_width_min_pixels=1
     )
 
     # create the geojson counties layer
