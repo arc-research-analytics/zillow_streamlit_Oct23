@@ -2,7 +2,6 @@ import streamlit as st
 import geopandas as gpd
 import pandas as pd
 import pydeck as pdk
-from PIL import Image
 from Other import color_functions
 
 st.set_page_config(
