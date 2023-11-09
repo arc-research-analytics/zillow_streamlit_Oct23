@@ -144,7 +144,7 @@ custom_colors = color_functions.generate_color_gradients(
 def load_data():
 
     # load the data
-    gdf = gpd.read_file('Processed_data/zillow_final.gpkg')
+    gdf = gpd.read_file('Processed_data/zillow_final_2.gpkg')
 
     # Replace 'Dekalb' with 'DeKalb'
     gdf['CountyName'] = gdf['CountyName'].replace({

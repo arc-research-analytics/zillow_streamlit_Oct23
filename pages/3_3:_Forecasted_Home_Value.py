@@ -129,9 +129,9 @@ st.markdown(
 
 
 # Set RGB color ramp for the mapper function
-start_color = "#D7E2FF"
-end_color = "#2191FB"
-num_steps = 7
+start_color = "#e5f5e0"  # lightest color
+end_color = "#005a32"   # darkest color
+num_steps = 6
 custom_colors = color_functions.generate_color_gradients(
     start_color, end_color, num_steps)
 
