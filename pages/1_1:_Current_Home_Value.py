@@ -272,11 +272,7 @@ def pydeck_map():
 
 
 # define <div> columns for main area
-col1, col2, col3 = st.columns([
-    2,  # map column
-    0.05,  # spacer column
-    1  # KPI  column
-])
+col1, col2 = st.columns([3, 1])
 
 # call mapper function
 col1.pydeck_chart(pydeck_map(), use_container_width=True)
@@ -324,37 +320,38 @@ min_county = zillow_df.loc[min_row, 'county']
 
 
 # kpi styles
-KPI_label_font_size = '19'
+KPI_label_font_size = '22'
 KPI_label_font_color = '#46494C'
 KPI_label_font_weight = '800'
-min_text = 'Lowest Home Value:'
-median_text = 'Median Home Value:'
 max_text = 'Highest Home Value:'
+median_text = 'Median Home Value:'
+min_text = 'Lowest Home Value:'
 
-KPI_value_font_size = '25'
+
+KPI_value_font_size = '20'
 KPI_value_font_color = '#46494C'
 KPI_value_font_weight = '100'
 KPI_line_height = '30'  # vertical spacing between the KPI label and value
 
 # Max Housing Value KPI
-col3.markdown(
+col2.markdown(
     f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{max_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {max_index}<br>ZIP: {max_zip}<br>As part of: {max_county}</span>", unsafe_allow_html=True)
-col3.write("")
+col2.write("")
 
 # Regionwide median
-col3.markdown(
+col2.markdown(
     f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{median_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {median_index}<br>ZIP: {median_zip}<br>As part of: {median_county}</span>", unsafe_allow_html=True)
-col3.write("")
+col2.write("")
 
 # Min Housing Value KPI
-col3.markdown(
+col2.markdown(
     f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{min_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {min_index}<br>ZIP: {min_zip}<br>As part of: {min_county}</span>", unsafe_allow_html=True)
 
 
 # Zillow logo
-col3.write("")
-col3.write("")
+col2.write("")
+col2.write("")
 image = Image.open('Other/zillow_watermark.png')
-with col3:
+with col2:
     subcol1, subcol2, subcol3 = st.columns(3)
-    subcol2.image(image, width=100)
+    subcol2.image(image, width=80)

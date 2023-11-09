@@ -152,8 +152,6 @@ gdf.rename(columns={
     'CountyName': 'county_name'
 }, inplace=True)
 
-# TEMPORARY - REMOVE GEOMETRY COLUMN
-# gdf.drop(columns='geometry', inplace=True)
 gdf = gpd.GeoDataFrame(gdf)
 
 # set choropleth color
@@ -181,7 +179,7 @@ initial_view_state = pdk.ViewState(
     zoom=zoom,
     pitch=0,
     bearing=0,
-    height=575
+    height=550
 )
 
 # create the geojson data layer

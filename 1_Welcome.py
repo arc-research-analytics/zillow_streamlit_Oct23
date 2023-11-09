@@ -40,6 +40,7 @@ custom_page_styling = """
         button[title="View fullscreen"]{
             visibility: hidden;
             }
+
         div.stActionButton{visibility: hidden;}
     </style>
 """
