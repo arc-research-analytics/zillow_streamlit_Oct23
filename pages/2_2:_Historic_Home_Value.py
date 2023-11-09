@@ -91,8 +91,8 @@ sorted_zip_list = sorted(zip_list)
 zip_select = st.sidebar.multiselect(
     label='something',
     options=sorted_zip_list,
-    default=['30002'],
-    max_selections=10,
+    default=['30101'],
+    max_selections=5,
     label_visibility='collapsed'
 )
 # sidebar---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^---^
@@ -126,7 +126,14 @@ fig = fig = px.line(
     df,
     x="Date",
     y="Index",
-    color='RegionName'
+    color='RegionName',
+    color_discrete_sequence=[
+        '#1b9e77',
+        '#d95f02',
+        '#7570b3',
+        '#e7298a',
+        '#66a61e'
+    ]
 )
 
 fig.update_traces(
@@ -135,9 +142,12 @@ fig.update_traces(
         "<b>%{y}</b>"
     ]),
     line=dict(
-        width=1
+        width=3
     )
 )
+
+axis_width = 1
+axis_color = '#46494C'
 
 fig.update_layout(
     showlegend=False,
@@ -146,15 +156,15 @@ fig.update_layout(
         r=25
     ),
     hoverlabel=dict(
-        bgcolor="#C5C3C6",
+        bgcolor="#FFFFFF",
         bordercolor="#46494C",
         font_size=16,  # set the font size of the chart tooltip
         font_color="#46494C",
         align="left"
     ),
     yaxis=dict(
-        linecolor="#46494C",
-        linewidth=2,
+        linecolor=axis_color,
+        linewidth=axis_width,
         title=None,
         tickfont_color='#46494C',
         tickfont_size=16,
@@ -163,8 +173,8 @@ fig.update_layout(
         zeroline=False
     ),
     xaxis=dict(
-        linecolor="#46494C",
-        linewidth=2,
+        linecolor=axis_color,
+        linewidth=axis_width,
         tickfont_color='#46494C',
         title=None,
         tickfont_size=16,
