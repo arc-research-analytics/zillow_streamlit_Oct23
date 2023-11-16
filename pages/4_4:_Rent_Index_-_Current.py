@@ -107,7 +107,7 @@ custom_colors = color_functions.generate_color_gradients(
 def load_data():
 
     # load the data
-    gdf = gpd.read_file('Processed_data/zillow_final_2.gpkg')
+    gdf = gpd.read_file('Processed_data/zillow_final.gpkg')
 
     # Replace 'Dekalb' with 'DeKalb'
     gdf['CountyName'] = gdf['CountyName'].replace({
@@ -244,6 +244,10 @@ col1, col2, col3 = st.columns([
 # map it!
 col1.pydeck_chart(draw_map(), use_container_width=True)
 
+# data disclaimer
+col1.markdown(
+    "<p style='color: #46494C; font-size: 20px;'><b>Note</b>: Missing ZIP codes from the map correspond to missing rent indices for that area.</p>", unsafe_allow_html=True)
+
 # KPIs---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v
 gdf = df_init
 
@@ -313,7 +317,6 @@ col3.write("")
 # Min Housing Value KPI
 col3.markdown(
     f"<span style='color:{KPI_label_font_color}; font-size:{KPI_label_font_size}px; font-weight:{KPI_label_font_weight}'>{min_text}</span><br><span style='color:{KPI_value_font_color}; font-size:{KPI_value_font_size}px; font-weight:{KPI_value_font_weight}; line-height: {KPI_line_height}px'>Index: {min_index}<br>ZIP: {min_zip}<br>As part of: {min_county}</span>", unsafe_allow_html=True)
-
 
 # Zillow logo
 col3.write("")
