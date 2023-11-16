@@ -90,7 +90,7 @@ sorted_zip_list = sorted(zip_list)
 zip_select = st.sidebar.multiselect(
     label='something',
     options=sorted_zip_list,
-    default=['30101'],
+    default=['30310'],
     max_selections=5,
     label_visibility='collapsed'
 )
