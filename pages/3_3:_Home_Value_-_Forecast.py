@@ -260,7 +260,7 @@ st.markdown("""
   </style>
 """, unsafe_allow_html=True)
 
-expander_header = "Methodology note"
+expander_header = "Data disclaimer"
 
 link_style = 'color:#606266; font-weight:900; text-decoration:none;'
 
