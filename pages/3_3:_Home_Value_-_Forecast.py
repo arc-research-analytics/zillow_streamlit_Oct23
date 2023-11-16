@@ -265,7 +265,7 @@ expander_header = "Data disclaimer"
 link_style = 'color:#606266; font-weight:900; text-decoration:none;'
 
 # paragraph text
-text_1 = 'From Zillow\'s methodology page: "systematic error, or consistently over or underpredicting an event or the future, is the enemy of clear-eyed decision-making. Reducing systematic error in housing price forecasts during this environment centers around more flexibility and accurately capturing turning points versus seasonal trends." For more information on how this forecast model was developed, please visit <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
+text_1 = 'While forecasting home values is notoriously difficult, we have nevertheless included Zillow\'s 1-, 3-, and 12-month home value forecasts for comparative purposes. Consider the following statemenbt from Zillow\'s forecast methodology page: "systematic error, or consistently over or underpredicting an event or the future, is the enemy of clear-eyed decision-making. Reducing systematic error in housing price forecasts during this environment centers around more flexibility and accurately capturing turning points versus seasonal trends." To this end, we are unable to account for the presence or lack of systematic error in the forecast methodology employed by Zillow. For more information on how this forecast model was developed, please visit <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
     link_style + '">this page</a>.'
 
 
