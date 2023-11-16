@@ -129,11 +129,11 @@ st.markdown(
 
 
 # Set RGB color ramp for the mapper function
-start_color = "#e5f5e0"  # lightest color
-end_color = "#005a32"   # darkest color
+lightest_color = "#e5f5e0"  # lightest color
+darkest_color = "#005a32"   # darkest color
 num_steps = 6
 custom_colors = color_functions.generate_color_gradients(
-    start_color, end_color, num_steps)
+    lightest_color, darkest_color, num_steps)
 
 
 gdf = gpd.read_file('Processed_data/forecasts.gpkg')
@@ -265,7 +265,7 @@ expander_header = "Methodology note"
 link_style = 'color:#606266; font-weight:900; text-decoration:none;'
 
 # paragraph text
-text_1 = 'From Zillow\'s methodology page: systematic error, or consistently over or underpredicting an event or the future, is the enemy of clear-eyed decision-making. Reducing systematic error in housing price forecasts during this environment centers around more flexibility and accurately capturing turning points versus seasonal trends. For more information on how this forecast model was developed, please visit <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
+text_1 = 'From Zillow\'s methodology page: "systematic error, or consistently over or underpredicting an event or the future, is the enemy of clear-eyed decision-making. Reducing systematic error in housing price forecasts during this environment centers around more flexibility and accurately capturing turning points versus seasonal trends." For more information on how this forecast model was developed, please visit <a href="https://www.zillow.com/research/methodology-neural-zhvi-32128/" style="' + \
     link_style + '">this page</a>.'
 
 

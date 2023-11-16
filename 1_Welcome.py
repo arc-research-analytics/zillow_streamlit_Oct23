@@ -115,7 +115,7 @@ st.markdown(
     f"<p style='color:{paragraph_color}; font-size:{paragraph_font_size}px; font-weight:{paragraph_font_weight}; line-height:{paragraph_line_height}px; font-style:{paragraph_font_style}; display:in-line; text-align:{paragraph_align};'>{text_1}", unsafe_allow_html=True)
 
 st.write("")
-text_2 = 'This dashboard is powered by Streamlit and built by the Atlanta Regional Commission\'s Research and Analytics Department.'
+text_2 = 'This dashboard is powered by Streamlit and built by the Atlanta Regional Commission\'s Research & Analytics Department.'
 st.markdown(
     f"<p style='color:{paragraph_color}; font-size:{paragraph_font_size}px; font-weight:{paragraph_font_weight}; line-height:{paragraph_line_height}px; font-style:{paragraph_font_style}; display:in-line; text-align:{paragraph_align};'>{text_2}", unsafe_allow_html=True)
 

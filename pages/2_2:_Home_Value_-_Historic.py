@@ -100,7 +100,7 @@ zip_select = st.sidebar.multiselect(
 # main section title
 title_color = '#46494C'
 title_font_size = '35'
-title_font_weight = '500'
+title_font_weight = '600'
 title_line_height = '20'
 title_font_style = 'normal'
 title_align = 'left'
@@ -167,7 +167,7 @@ fig.update_layout(
         linewidth=axis_width,
         title=None,
         tickfont_color='#46494C',
-        tickfont_size=16,
+        tickfont_size=18,
         tickformat='$,.0f',
         showgrid=False,
         zeroline=False
@@ -177,7 +177,7 @@ fig.update_layout(
         linewidth=axis_width,
         tickfont_color='#46494C',
         title=None,
-        tickfont_size=16,
+        tickfont_size=18,
         tickformat='%b %Y',
         dtick='M3'
     ),
