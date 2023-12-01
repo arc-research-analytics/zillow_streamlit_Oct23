@@ -162,7 +162,7 @@ custom_colors = color_functions.generate_color_gradients(
 
 def mapper_2D():
 
-    gdf = gpd.read_file('Processed_data/forecasts.gpkg')
+    gdf = gpd.read_file('Processed_data/forecasts_2.gpkg')
 
     # Replace 'Dekalb' with 'DeKalb'
     gdf['CountyName'] = gdf['CountyName'].replace({
@@ -266,7 +266,7 @@ def mapper_2D():
 
 def mapper_3D():
 
-    gdf = gpd.read_file('Processed_data/forecasts.gpkg')
+    gdf = gpd.read_file('Processed_data/forecasts_2.gpkg')
 
     # Replace 'Dekalb' with 'DeKalb'
     gdf['CountyName'] = gdf['CountyName'].replace({
@@ -360,7 +360,7 @@ def mapper_3D():
     r = pdk.Deck(
         layers=[
             geojson,
-            geojson_counties
+            # geojson_counties
         ],
         initial_view_state=initial_view_state,
         map_provider='mapbox',
