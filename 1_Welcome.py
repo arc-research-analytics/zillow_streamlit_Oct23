@@ -3,7 +3,7 @@ from PIL import Image
 import base64
 
 st.set_page_config(
-    page_title="Zillow Dashboard",
+    page_title="ATL Zillow Dashboard",
     page_icon=":house:",
     layout="wide",
     initial_sidebar_state="expanded",

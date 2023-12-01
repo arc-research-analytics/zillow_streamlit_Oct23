@@ -6,7 +6,7 @@ from PIL import Image
 from Other import color_functions
 
 st.set_page_config(
-    page_title="Zillow Dashboard",
+    page_title="ATL Zillow Dashboard",
     page_icon=":house:",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -50,6 +50,7 @@ custom_page_styling = """
 st.markdown(custom_page_styling, unsafe_allow_html=True)
 
 # sidebar---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v
+sidebar_text_align = 'left'
 sidebar_font_size = '16'
 sidebar_color = '#FFFFFF'
 sidebar_font_style = 'normal'
@@ -57,7 +58,7 @@ sidebar_font_style = 'normal'
 # map basemap title & CSS
 st.sidebar.markdown(
     f"""
-    <p style='text-align:center;
+    <p style='text-align:{sidebar_text_align};
     color:{sidebar_color};
     font-size:{sidebar_font_size}px;
     font-style:{sidebar_font_style};

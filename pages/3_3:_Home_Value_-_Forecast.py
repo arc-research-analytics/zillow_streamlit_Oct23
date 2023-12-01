@@ -5,7 +5,7 @@ import pydeck as pdk
 from Other import color_functions
 
 st.set_page_config(
-    page_title="Zillow Dashboard",
+    page_title="ATL Zillow Dashboard",
     page_icon=":house:",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -52,6 +52,7 @@ custom_page_styling = """
 st.markdown(custom_page_styling, unsafe_allow_html=True)
 
 # sidebar---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v---v
+sidebar_text_align = 'left'
 sidebar_font_size = '16'
 sidebar_color = '#FFFFFF'
 sidebar_font_style = 'normal'
@@ -59,7 +60,7 @@ sidebar_font_style = 'normal'
 # housing type select box title & CSS
 st.sidebar.markdown(
     f"""
-    <p style='text-align:center;
+    <p style='text-align:{sidebar_text_align};
     color:{sidebar_color};
     font-size:{sidebar_font_size}px;
     font-style:{sidebar_font_style};
@@ -87,10 +88,33 @@ timeline_dict = {
 }
 st.sidebar.write("")
 
+st.sidebar.write("")
+st.sidebar.write("")
+
+# Enable 3D or no
+st.sidebar.markdown(
+    f"""
+    <p style='text-align:{sidebar_text_align};
+    color:{sidebar_color};
+    font-size:{sidebar_font_size}px;
+    font-style:{sidebar_font_style};
+    '>Show forecast + current home value:</p>
+    """,
+    unsafe_allow_html=True)
+
+map_3D = st.sidebar.toggle(
+    label='Activate feature',
+    value=True,
+    label_visibility='collapsed'
+)
+
+st.sidebar.write("")
+st.sidebar.write("")
+
 # map basemap title & CSS
 st.sidebar.markdown(
     f"""
-    <p style='text-align:center;
+    <p style='text-align:{sidebar_text_align};
     color:{sidebar_color};
     font-size:{sidebar_font_size}px;
     font-style:{sidebar_font_style};
@@ -136,106 +160,227 @@ custom_colors = color_functions.generate_color_gradients(
     lightest_color, darkest_color, num_steps)
 
 
-gdf = gpd.read_file('Processed_data/forecasts.gpkg')
+def mapper_2D():
 
-# Replace 'Dekalb' with 'DeKalb'
-gdf['CountyName'] = gdf['CountyName'].replace({
-    'Dekalb County': 'DeKalb County'
-})
+    gdf = gpd.read_file('Processed_data/forecasts.gpkg')
 
-# don't need the BaseDate column
-gdf.drop(columns='BaseDate', inplace=True)
+    # Replace 'Dekalb' with 'DeKalb'
+    gdf['CountyName'] = gdf['CountyName'].replace({
+        'Dekalb County': 'DeKalb County'
+    })
 
-# do some cleaning
-gdf.rename(columns={
-    'RegionName': 'zip_code',
-    'CountyName': 'county_name'
-}, inplace=True)
+    # don't need the BaseDate column
+    gdf.drop(columns='BaseDate', inplace=True)
 
-gdf = gpd.GeoDataFrame(gdf)
+    # do some cleaning
+    gdf.rename(columns={
+        'RegionName': 'zip_code',
+        'CountyName': 'county_name'
+    }, inplace=True)
 
-# set choropleth color
-gdf['choro_color'] = pd.cut(
-    gdf[timeline_dict[timeline_variable]],
-    bins=len(custom_colors),
-    labels=custom_colors,
-    include_lowest=True,
-    duplicates='drop'
-)
+    gdf = gpd.GeoDataFrame(gdf)
 
-# format data column
-gdf['data_formatted'] = gdf[timeline_dict[timeline_variable]].apply(
-    lambda x: '{:.1f}%'.format((x)))
+    # set choropleth color
+    gdf['choro_color'] = pd.cut(
+        gdf[timeline_dict[timeline_variable]],
+        bins=len(custom_colors),
+        labels=custom_colors,
+        include_lowest=True,
+        duplicates='drop'
+    )
 
-# view state variables
-latitude = 33.83
-longitude = -84.38
-zoom = 8
+    # format data column
+    gdf['data_formatted'] = gdf[timeline_dict[timeline_variable]].apply(
+        lambda x: '{:.1f}%'.format((x)))
 
-# create intitial view state
-initial_view_state = pdk.ViewState(
-    latitude=latitude,
-    longitude=longitude,
-    zoom=zoom,
-    pitch=0,
-    bearing=0,
-    height=550
-)
+    # view state variables
+    latitude = 33.83
+    longitude = -84.38
+    zoom = 8
 
-# create the geojson data layer
-geojson = pdk.Layer(
-    "GeoJsonLayer",
-    gdf,
-    pickable=True,
-    autoHighlight=True,
-    highlight_color=[255, 255, 255, 128],
-    opacity=0.5,
-    stroked=True,
-    filled=True,
-    get_fill_color='choro_color',
-    get_line_color=[255, 255, 255, 50],
-    line_width_min_pixels=1
-)
+    # create intitial view state
+    initial_view_state = pdk.ViewState(
+        latitude=latitude,
+        longitude=longitude,
+        zoom=zoom,
+        pitch=0,
+        bearing=0,
+        height=550
+    )
 
-# create the geojson counties layer
-atl_counties = gpd.read_file('Other/atl_counties.gpkg')
-geojson_counties = pdk.Layer(
-    "GeoJsonLayer",
-    atl_counties,
-    pickable=False,
-    autoHighlight=False,
-    opacity=0.75,
-    stroked=True,
-    filled=False,
-    get_line_color=base_map_dict[base_map][1],
-    line_width_min_pixels=2
-)
+    # create the geojson data layer
+    geojson = pdk.Layer(
+        "GeoJsonLayer",
+        gdf,
+        pickable=True,
+        autoHighlight=True,
+        highlight_color=[255, 255, 255, 128],
+        opacity=0.5,
+        stroked=True,
+        filled=True,
+        get_fill_color='choro_color',
+        get_line_color=[255, 255, 255, 50],
+        line_width_min_pixels=1
+    )
 
-# configure & customize the tooltip
-tooltip = {
-    "html": "Forecasted change in home value: <b>{data_formatted}</b><hr style='margin: 10px auto; opacity:0.5; border-top: 2px solid white; width:85%'>\
-                ZIP: {zip_code} <br>\
-                As part of: {county_name}",
-    "style": {"background": "rgba(70,73,76,0.7)",
-              "border": "1px solid white",
-              "color": "white",
-              "font-family": "Helvetica",
-              "text-align": "center"
-              },
-}
+    # create the geojson counties layer
+    atl_counties = gpd.read_file('Other/atl_counties.gpkg')
+    geojson_counties = pdk.Layer(
+        "GeoJsonLayer",
+        atl_counties,
+        pickable=False,
+        autoHighlight=False,
+        opacity=0.75,
+        stroked=True,
+        filled=False,
+        get_line_color=base_map_dict[base_map][1],
+        line_width_min_pixels=2
+    )
 
-r = pdk.Deck(
-    layers=[
-        geojson,
-        geojson_counties
-    ],
-    initial_view_state=initial_view_state,
-    map_provider='mapbox',
-    map_style=base_map_dict[base_map][0],
-    tooltip=tooltip
-)
+    # configure & customize the tooltip
+    tooltip = {
+        "html": "Forecasted change in home value: <b>{data_formatted}</b><hr style='margin: 10px auto; opacity:0.5; border-top: 2px solid white; width:85%'>\
+                    ZIP: {zip_code} <br>\
+                    As part of: {county_name}",
+        "style": {"background": "rgba(70,73,76,0.7)",
+                  "border": "1px solid white",
+                  "color": "white",
+                  "font-family": "Helvetica",
+                  "text-align": "center"
+                  },
+    }
 
-st.pydeck_chart(r, use_container_width=True)
+    r = pdk.Deck(
+        layers=[
+            geojson,
+            geojson_counties
+        ],
+        initial_view_state=initial_view_state,
+        map_provider='mapbox',
+        map_style=base_map_dict[base_map][0],
+        tooltip=tooltip
+    )
+
+    return r
+
+
+def mapper_3D():
+
+    gdf = gpd.read_file('Processed_data/forecasts.gpkg')
+
+    # Replace 'Dekalb' with 'DeKalb'
+    gdf['CountyName'] = gdf['CountyName'].replace({
+        'Dekalb County': 'DeKalb County'
+    })
+
+    # don't need the BaseDate column
+    gdf.drop(columns='BaseDate', inplace=True)
+
+    # do some cleaning
+    gdf.rename(columns={
+        'RegionName': 'zip_code',
+        'CountyName': 'county_name'
+    }, inplace=True)
+
+    gdf = gpd.GeoDataFrame(gdf)
+
+    # set choropleth color
+    gdf['choro_color'] = pd.cut(
+        gdf[timeline_dict[timeline_variable]],
+        bins=len(custom_colors),
+        labels=custom_colors,
+        include_lowest=True,
+        duplicates='drop'
+    )
+
+    # format data column
+    gdf['data_formatted'] = gdf[timeline_dict[timeline_variable]].apply(
+        lambda x: '{:.1f}%'.format((x)))
+
+    # view state variables
+    latitude = 33.83
+    longitude = -84.38
+    zoom = 8
+
+    # create intitial view state
+    initial_view_state = pdk.ViewState(
+        latitude=latitude,
+        longitude=longitude,
+        zoom=zoom,
+        pitch=45,
+        bearing=0,
+        height=550
+    )
+
+    # create the geojson data layer
+    geojson = pdk.Layer(
+        "GeoJsonLayer",
+        gdf,
+        pickable=True,
+        autoHighlight=True,
+        highlight_color=[255, 255, 255, 128],
+        opacity=0.5,
+        stroked=True,
+        filled=True,
+        extruded=True,
+        wireframe=False,
+        get_fill_color='choro_color',
+        get_elevation='home_value_index / 10',
+        get_line_color=[255, 255, 255, 50],
+        line_width_min_pixels=1
+    )
+
+    # create the geojson counties layer
+    atl_counties = gpd.read_file('Other/atl_counties.gpkg')
+    geojson_counties = pdk.Layer(
+        "GeoJsonLayer",
+        atl_counties,
+        pickable=False,
+        autoHighlight=False,
+        opacity=0.75,
+        stroked=True,
+        filled=False,
+        get_line_color=base_map_dict[base_map][1],
+        line_width_min_pixels=2
+    )
+
+    # configure & customize the tooltip
+    tooltip = {
+        "html": "Forecasted change in home value: <b>{data_formatted}</b><hr style='margin: 10px auto; opacity:0.5; border-top: 2px solid white; width:85%'>\
+                    ZIP: {zip_code} <br>\
+                    As part of: {county_name}",
+        "style": {"background": "rgba(70,73,76,0.7)",
+                  "border": "1px solid white",
+                  "color": "white",
+                  "font-family": "Helvetica",
+                  "text-align": "center"
+                  },
+    }
+
+    r = pdk.Deck(
+        layers=[
+            geojson,
+            geojson_counties
+        ],
+        initial_view_state=initial_view_state,
+        map_provider='mapbox',
+        map_style=base_map_dict[base_map][0],
+        tooltip=tooltip
+    )
+
+    return r
+
+
+# logic that will dictage whether map shows as 3D or 2D
+if map_3D:
+    # that is, if the sidebar toggle is enabled, render map in 3D
+    st.pydeck_chart(mapper_3D(), use_container_width=True)
+    st.markdown("<p style='text-align:left;color:#46494C'><b>Shift + click</b> to rotate map in 3D mode.",
+                unsafe_allow_html=True)
+else:
+    # if the user disables the toggle, just show map in 2D
+    st.pydeck_chart(mapper_2D(), use_container_width=True)
+
 
 st.markdown("""
   <style>
